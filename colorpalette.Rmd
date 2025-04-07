@@ -1,0 +1,365 @@
+---
+title: "eCampus Colors Guide"
+author: "Enita Omuvwie"
+date: "`r Sys.Date()`"  # Automatically updates to the current date
+output: 
+  html_document:
+    toc: true         # Enable Table of Contents
+    toc_depth: 2      # TOC depth set to 2 levels
+    toc_float: true   # Floating TOC for better navigation
+    number_sections: true  # Number sections for readability
+    self_contained: true  # Ensure standalone HTML file
+    df_print: paged   # Improve table formatting
+---
+
+
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)  # Hide code globally
+```
+
+
+```{r load-libraries, echo=TRUE}
+# Load libraries
+library(DT)
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(odbc)
+library(maps)
+library(colorspace)
+library(shiny)
+```
+
+
+```{r ecampus palettes, echo=TRUE}
+# Define color palettes for different branches
+ecampus_palette <- list(
+  "USG-eCore" = list(
+    "Official Colors" = c("eCore_Green" = "#7BA640", "eCore_Teal" = "#00A9A6", "eCore_Callout_Green" = "#C9D57F", "eCore_Callout_Teal" = "#B4E8E5"),
+    "Secondary Colors" = c("eCore_Class_is_Greener" = "#7DAA45", "eCore_OER_Orange" = "#F6931E", "eCore_Professor_Plum" = "#8F3776", "eCore_Transferable_Teal" = "#03A59D", "eCore_Accredited_Gray" = "#555755", "eCore_Profread_Red" = "#CA2027", "eCore_Success_Team_Turquoise" = "#4CC2C5","eCore_Banner_Blue" = "#21387D","eCore_Deep_Thinking_Teal" = "#0F7F86"),
+    "Neutrals" = c("eCore_Grateful_Gray" = "#848484", "eCore_Balanced_Blue" = "#DDF1EB", "eCore_Confident_Gray" = "#CFCFCF", "eCore_Growth_Green" = "#E7F1BD")
+  ),
+  "USG-eMajor" = list(
+    "Official Colors" = c("eMajor_Navy" = "#0D4860", "eMajor_Callout_Navy" = "#122550", "eMajor_Gray" = "#54554C", "eMajor_Teal" = "#38A3B1"),
+    "Secondary Colors" = c("eMajor_Transcript_Review_Teal" = "#0F7F86", "eMajor_Ready_for_Graduation" = "#AA1E23", "eMajor_Pedagogy_Purple" = "#8F3776", "eMajor_Leadership_Lavender" = "#776780", "eMajor_Collaborative_Teal" = "#5EAFB4"),
+    "Neutrals" = c("eMajor_Grateful_Gray" = "#848484", "eCore_Balanced_Blue" = "#DDF1EB", "eMajor_Oats_of_Opportunity" = "#C4B5AB")
+  ),
+  "USG-freeCampus" = list(
+    "Official Colors" = c("FreeCampus_Teal" = "#0F7F86", "FreeCampus_Red" = "#A22422", "FreeCampus_Dark_Teal" = "#004F51"),
+    "Neutrals" = c("FreeCampus_Grateful_Gray" = "#848484", "FreeCampus_Balanced_Blue" = "#DDF1EB", "FreeCampus_Oats_of_Opportunity" = "#C4B5AB")
+  ),
+  "USG-eCampus" = list(
+    "Official Colors" = c("eCampus_Teal" = "#6DC4B5", "eCampus_Red" = "#CA202A", "eCampus_Callout_Teal" = "#0F7F86", "eCampus_Callout_Red" = "#A22422"),
+    "Secondary Colors" = c("eCampus_Bright_Future_Yellow" = "#EBC647", "eCampus_Online-Learning_Orange" = "#E87600", "eCampus_Study_Group_Gray" = "#898989", "eCampus_Pedadogy_Purple" = "#662362"),
+    "Neutrals" = c("eCampus_Grateful_Gray" = "#848484", "eCampus_Balanced_Blue" = "#DDF1EB", "eCampus_Oats_of_Opportunity" = "#C4B5AB")
+  )
+)
+```
+
+```{r get-palette-data, echo=TRUE}
+# Function to generate palette table data
+get_palette_data <- function() {
+  palette_list <- lapply(names(ecampus_palette), function(branch) {
+    lapply(names(ecampus_palette[[branch]]), function(type) {
+      colors <- ecampus_palette[[branch]][[type]]
+      data.frame(
+        Branch = branch,
+        Type = type,
+        Color = names(colors),
+        Hex = unname(colors),
+        stringsAsFactors = FALSE
+      )
+    }) 
+  })
+  
+  do.call(rbind, unlist(palette_list, recursive = FALSE))
+}
+
+# Combine the data for all branches and types
+palette_data <- get_palette_data()
+
+```
+
+```{r display-palette-data, echo=TRUE}
+# Add Swatch column for color visualization
+palette_data <- palette_data %>%
+  mutate(Swatch = paste0('<div style="width: 50px; height: 20px; background-color:', Hex, ';"></div>'))
+
+# Display using DT
+datatable(palette_data, escape = FALSE, rownames = FALSE,options = list(dom = 't', pageLength = 15))
+
+
+# Create a stacked bar plot with custom hover text
+stacked_plot <- ggplot(palette_data, aes(x = Branch, fill = Color)) +
+  geom_bar(position = "stack", aes(text = paste("Branch: ", Branch, "<br>Color: ", Color, "<br>Hex: ", Hex))) +
+  scale_fill_manual(values = setNames(palette_data$Hex, palette_data$Color)) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 0, hjust = 0, vjust=0),
+        legend.position = "none") +
+  labs(title = "Color Palette for eCampus")
+
+# Convert to an interactive plot with plotly, specifying the hover text
+interactive_plot <- ggplotly(stacked_plot, tooltip = "text")%>%
+  layout(
+    xaxis = list(title = ""),
+    yaxis= list(showticklabels = FALSE,title=""))
+
+# Print the interactive plot
+interactive_plot
+```
+
+```{r map-data, echo=TRUE}
+# Load county map data for Georgia
+ga_counties <- map_data("county") %>% filter(region == "georgia")
+
+# Create a random categorical variable for coloring
+set.seed(123)  # Ensures consistent random colors
+unique_counties <- unique(ga_counties$subregion)
+color_categories <- sample(c("A", "B", "C", "D", "E"), length(unique_counties), replace = TRUE)
+county_colors <- data.frame(subregion = unique_counties, category = color_categories)
+
+# Merge color categories with map data
+ga_counties <- ga_counties %>%
+  left_join(county_colors, by = "subregion")
+
+# Connect to the database and fetch institution data
+con <- DBI::dbConnect(odbc::odbc(), "sqlserver-ecampus")
+sql_query <- "SELECT Institution, IntitutionLatitude, InstitutionLongitude, System FROM [eCampus].[dbo].[ref.Institutions]"
+institutions <- DBI::dbGetQuery(con, sql_query)
+DBI::dbDisconnect(con)
+
+# Ensure latitude and longitude are numeric
+institutions <- institutions %>%
+  mutate(
+    IntitutionLatitude = as.numeric(IntitutionLatitude),
+    InstitutionLongitude = as.numeric(InstitutionLongitude)
+  )
+
+# Remove rows with missing latitude or longitude
+institutions <- institutions %>%
+  filter(!is.na(IntitutionLatitude) & !is.na(InstitutionLongitude))
+
+# Define color palette for the five systems
+color_palette <- c(
+  "USG" = "#0D4860",       # Dark Blue
+  "USG-CE" = "#F6931E",    # Orange
+  "TCSG" = "#8F3776",      # Purple
+  "TCSG-CE" = "#03A59D",   # Teal
+  "Private" = "#EBC647"    # Yellow
+)
+
+# Create static map with counties colored and institutions as points
+create_static_map <- function(county_data, institution_data, color_palette) {
+  ggplot() +
+    # Color counties by the random categorical variable
+    geom_polygon(data = county_data, aes(x = long, y = lat, group = group, fill = category), color = "white", size = 0.2) +
+    scale_fill_manual(values = c("A" = "#0D4860", "B" = "#F6931E", "C" = "#8F3776", "D" = "#03A59D", "E" = "#EBC647")) +
+    
+    # Plot the institution points on top of the counties
+    geom_point(data = institution_data, aes(x = InstitutionLongitude, y = IntitutionLatitude, color = System, text = paste("Institution: ", Institution, "<br>System: ", System)), size = 2) +
+    scale_color_manual(values = color_palette) +
+    
+    # Customize the map appearance
+    coord_map() +
+    theme_void() +
+    theme(legend.position = "none") +
+    labs(title = "Georgia Institutions by System with County")
+}
+
+# Generate the static map with counties and institutions
+usg_map <- create_static_map(ga_counties, institutions, color_palette)
+
+# Make the map interactive and show tooltips
+ggplotly(usg_map, tooltip = "text")
+
+```
+
+```{r color-extraction, echo=TRUE}
+# Function to extract
+extract_colors <- function(palettes) {
+  colors <- unlist(lapply(palettes, function(branch) {
+    unlist(lapply(branch, function(type) {
+      unname(type)
+    }))
+  }))
+  return(unique(colors))  # Return only unique colors
+}
+
+# Extract colors
+all_colors <- extract_colors(ecampus_palettes)
+
+# Manual color grouping based on the image
+manual_color_groups <- list(
+  "Blue" = c("#0D4860","#21387D","#0F7F86", "#38A3B1","#4CC2C5"),
+  "Cyan" = c("#5EAFB4", "#03A59D", "#00A9A6","#6DC4B5", "#B4E8E5", "#DDF1EB"),
+  "Gray" = c("#54554C", "#848484", "#CFCFCF","#C4B5AB"),
+  "Green" = c("#004F51","#7BA640", "#7DAA45","#C9D57F"),
+  "Magenta" = c( "#662362","#8F3776", "#776780"),
+  "Red" = c("#AA1E23", "#A22422", "#CA2027","#CA202A"),
+  "Yellow" = c("#F6931E", "#E87600", "#EBC647","#E7F1BD")
+)
+
+# Prepare data for ggplot
+data <- data.frame()
+for (group in names(manual_color_groups)) {
+  colors <- manual_color_groups[[group]]
+  for (color in colors) {
+    data <- rbind(data, data.frame(Group = group, Color = color, stringsAsFactors = FALSE))
+  }
+}
+
+# Ensure the order of groups matches the image
+data$Group <- factor(data$Group, levels = c("Blue", "Cyan", "Gray", "Green", "Magenta", "Red", "Yellow"))
+
+# Create the stacked bar chart
+p <- ggplot(data, aes(x = Group, fill = Color, text=paste("Color: ", Color))) +
+  geom_bar(width = 0.9, color= NA) +
+  scale_fill_identity() + # Use actual color codes for fill
+  theme_minimal() +
+  labs(title = "Organized Palette Colors",
+       x = NULL, y = NULL) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 1),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text.y = element_blank(),
+        legend.position = "none")
+
+# Convert to plotly
+p <- plotly::ggplotly(p, tooltip = "text")
+p
+```
+
+```{r gradient-generator, echo=TRUE}
+# UI
+ui <- fluidPage(
+  titlePanel("eCampus Gradient Generator"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("palette", "Choose a Palette:", choices = names(ecampus_palettes)),
+      uiOutput("category_ui"),
+      uiOutput("colors_ui"),
+      
+      selectInput("gradient_method", "Gradient Method:", 
+                  choices = c("RGB Blend", "Perceptual HCL", "Smooth Interpolation")),
+      
+      selectInput("ease_function", "Ease Function:", 
+                  choices = c("Linear", "Ease-In", "Ease-Out")),
+      
+      sliderInput("precision", "Gradient Precision:", min = 10, max = 400, value = 200),
+      
+      downloadButton("download_gradient", "Export Gradient as CSS")
+    ),
+    
+    mainPanel(
+      div(id = "preview_element", style = "width:100%;height:100px;"),
+      plotlyOutput("gradient_plot"),
+      textOutput("contrast_check")
+    )
+  )
+)
+
+# Server logic
+server <- function(input, output, session) {
+  
+  output$category_ui <- renderUI({
+    req(input$palette)
+    selectInput("category", "Choose a Category:", choices = names(ecampus_palettes[[input$palette]]))
+  })
+  
+  output$colors_ui <- renderUI({
+    req(input$palette, input$category)
+    selectizeInput("selected_colors", "Select Colors:", 
+                   choices = ecampus_palettes[[input$palette]][[input$category]], 
+                   multiple = TRUE, options = list(maxItems = 5))
+  })
+  
+  output$gradient_plot <- renderPlotly({
+    req(input$palette, input$category, input$selected_colors)
+    
+    colors <- input$selected_colors
+    precision <- input$precision
+    
+    if (length(colors) < 2) {
+      showNotification("Select at least 2 colors to generate a gradient.", type = "error")
+      return(NULL)
+    }
+    
+    ease_function <- switch(input$ease_function,
+                            "Linear" = function(x) x,
+                            "Ease-In" = function(x) x^2,
+                            "Ease-Out" = function(x) sqrt(x))
+    
+    gradient_positions <- ease_function(seq(0, 1, length.out = precision))
+    
+    gradient_colors <- switch(input$gradient_method,
+                              "RGB Blend" = colorRampPalette(colors, space = "rgb")(precision),
+                              "Perceptual HCL" = {
+                                rgb_colors <- col2rgb(colors) / 255
+                                hcl_colors <- as(colorspace::RGB(t(rgb_colors)), "polarLUV")
+                                h_values <- hcl_colors@coords[, "H"]
+                                c_values <- hcl_colors@coords[, "C"]
+                                l_values <- hcl_colors@coords[, "L"]
+                                sequential_hcl(
+                                  n = precision,
+                                  h = mean(h_values, na.rm = TRUE),
+                                  c = mean(c_values, na.rm = TRUE),
+                                  l = seq(min(l_values, na.rm = TRUE), max(l_values, na.rm = TRUE), length.out = precision)
+                                )
+                              },
+                              "Smooth Interpolation" = gradient_n_pal(colors)(gradient_positions)
+    )
+    
+    df <- data.frame(x = 1:precision, y = rep(1, precision), color = gradient_colors)
+    
+    p <- ggplot(df, aes(x = x, y = y, fill = color, text = paste("Color: ", color))) +
+      geom_tile(color = NA) +
+      scale_fill_identity() +
+      theme_void() + 
+      theme(panel.grid = element_blank(),
+            legend.position = "none",
+            plot.margin = margin(0, 0, 0, 0, "cm"),
+            panel.border = element_blank()) +
+      labs(title = paste("Gradient Method:", input$gradient_method))
+    
+    ggplotly(p, tooltip = "text") %>%
+      layout(showlegend = FALSE) %>%
+      config(displayModeBar = FALSE)
+  })
+  
+  output$contrast_check <- renderText({
+    req(input$selected_colors)
+    if (length(input$selected_colors) >= 2) {
+      contrast_ratio <- colorspace::contrast_ratio(input$selected_colors[1], input$selected_colors[2])
+      paste("Contrast Ratio:", round(contrast_ratio, 2))
+    } else {
+      "Select at least two colors to check contrast."
+    }
+  })
+  
+  output$download_gradient <- downloadHandler(
+    filename = "gradient.css",
+    content = function(file) {
+      req(input$selected_colors)
+      css_gradient <- paste(
+        "background: linear-gradient(90deg,",
+        paste(input$selected_colors, collapse = ", "), ");"
+      )
+      writeLines(css_gradient, file)
+    }
+  )
+  
+  observe({
+    req(input$selected_colors)
+    preview_style <- paste("background: linear-gradient(90deg,", paste(input$selected_colors, collapse = ", "), ");")
+    shinyjs::runjs(sprintf("document.getElementById('preview_element').style='%s';", preview_style))
+  })
+}
+
+shinyApp(ui, server)
+```
+

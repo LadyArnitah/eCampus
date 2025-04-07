@@ -1,0 +1,12 @@
+name: eCampusGradient
+title: eCampusGradient
+username: ladyarnitah
+account: ladyarnitah
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14451404
+bundleId: 10072718
+url: https://ladyarnitah.shinyapps.io/eCampusGradient/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

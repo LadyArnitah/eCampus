@@ -1,0 +1,11 @@
+^eCampus\.Rproj$
+^\.Rproj\.user$
+^doc$
+^Meta$
+^LICENSE\.md$
+^vignettes/rsconnect$
+^StickerPackage$
+^eCampusGradient$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

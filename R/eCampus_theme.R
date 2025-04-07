@@ -1,0 +1,74 @@
+
+#' eCampus Thematic ggplot2 Theme
+#'
+#' This function defines a custom ggplot2 theme with a clean and structured appearance,
+#' designed for eCampus-related visualizations. It applies a minimal theme with specific
+#' color and text settings for consistency.
+#'
+#' @param base_size Numeric. Base font size for text elements. Default is 14.
+#' @param base_family Character. Base font family for text elements. Default is "Arial".
+#'
+#' @return A ggplot2 theme object with customized elements including titles, axis text,
+#' legend styles, and background settings.
+#'
+#' @details The theme applies:
+#' - A centered, bold plot title in deep blue (`#003366`).
+#' - Italicized axis titles in deep blue (`#003366`).
+#' - Black axis text.
+#' - Light gray (`#f0f0f0`) panel background.
+#' - Grid lines in soft gray shades.
+#' - A neatly formatted legend with a white background.
+#' - Bottom-aligned legend positioning.
+#' - Well-defined facet labels (strip text).
+#' - Black axis lines and panel borders.
+#' - A white overall plot background.
+#'
+#' @examples
+#' library(ggplot2)
+#' ggplot(mtcars, aes(x = wt, y = mpg)) +
+#'   geom_point() +
+#'   eCampus_theme()
+#'
+#' @export
+eCampus_theme <- function(base_size = 14, base_family = "Arial") {
+  theme_minimal(base_size = base_size, base_family = base_family) +
+    theme(
+      # Plot title
+      plot.title = element_text(size = 16, face = "bold", color = "#003366", hjust = 0.5),
+
+      # Axis titles
+      axis.title = element_text(size = 12, face = "italic", color = "#003366"),
+
+      # Axis text
+      axis.text = element_text(size = 10, color = "#000000"),
+
+      # Panel background
+      panel.background = element_rect(fill = "#f0f0f0", color = NA),
+
+      # Panel grid lines
+      panel.grid.major = element_line(color = "#d3d3d3", size = 0.5),
+      panel.grid.minor = element_line(color = "#e0e0e0", size = 0.25),
+
+      # Legend
+      legend.title = element_text(size = 12, face = "bold", color = "#003366"),
+      legend.text = element_text(size = 10, color = "#000000"),
+      legend.background = element_rect(fill = "#FFFFFF", color = NA),
+      legend.key = element_rect(fill = "#FFFFFF", color = NA),
+      legend.position = "bottom",
+
+      # Strip text (facet labels)
+      strip.text = element_text(size = 12, face = "bold", color = "#003366"),
+
+      # Axis lines
+      axis.line = element_line(color = "#000000", size = 0.5),
+
+      # Panel border
+      panel.border = element_rect(color = "#000000", fill = NA, size = 0.5),
+
+      # Plot background
+      plot.background = element_rect(fill = "#FFFFFF", color = NA),
+
+      # Complete theme
+      complete = TRUE
+    )
+}
