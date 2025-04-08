@@ -7,7 +7,7 @@
 #'
 #' @param base_size Numeric. Base font size for text elements. Default is 14.
 #' @param base_family Character. Base font family for text elements. Default is "Arial".
-#'
+#' @importFrom ggplot2 theme_minimal theme element_text element_rect element_line
 #' @return A ggplot2 theme object with customized elements including titles, axis text,
 #' legend styles, and background settings.
 #'
@@ -31,42 +31,42 @@
 #'
 #' @export
 eCampus_theme <- function(base_size = 14, base_family = "Arial") {
-  theme_minimal(base_size = base_size, base_family = base_family) +
-    theme(
+  ggplot2::theme_minimal(base_size = base_size, base_family = base_family) +
+    ggplot2::theme(
       # Plot title
-      plot.title = element_text(size = 16, face = "bold", color = "#003366", hjust = 0.5),
+      plot.title = ggplot2::element_text(size = 16, face = "bold", color = "#003366", hjust = 0.5),
 
       # Axis titles
-      axis.title = element_text(size = 12, face = "italic", color = "#003366"),
+      axis.title = ggplot2::element_text(size = 12, face = "italic", color = "#003366"),
 
       # Axis text
-      axis.text = element_text(size = 10, color = "#000000"),
+      axis.text = ggplot2::element_text(size = 10, color = "#000000"),
 
       # Panel background
-      panel.background = element_rect(fill = "#f0f0f0", color = NA),
+      panel.background = ggplot2::element_rect(fill = "#f0f0f0", color = NA),
 
       # Panel grid lines
-      panel.grid.major = element_line(color = "#d3d3d3", size = 0.5),
-      panel.grid.minor = element_line(color = "#e0e0e0", size = 0.25),
+      panel.grid.major = ggplot2::element_line(color = "#d3d3d3", size = 0.5),
+      panel.grid.minor = ggplot2::element_line(color = "#e0e0e0", size = 0.25),
 
       # Legend
-      legend.title = element_text(size = 12, face = "bold", color = "#003366"),
-      legend.text = element_text(size = 10, color = "#000000"),
-      legend.background = element_rect(fill = "#FFFFFF", color = NA),
-      legend.key = element_rect(fill = "#FFFFFF", color = NA),
+      legend.title = ggplot2::element_text(size = 12, face = "bold", color = "#003366"),
+      legend.text = ggplot2::element_text(size = 10, color = "#000000"),
+      legend.background = ggplot2::element_rect(fill = "#FFFFFF", color = NA),
+      legend.key = ggplot2::element_rect(fill = "#FFFFFF", color = NA),
       legend.position = "bottom",
 
       # Strip text (facet labels)
-      strip.text = element_text(size = 12, face = "bold", color = "#003366"),
+      strip.text = ggplot2::element_text(size = 12, face = "bold", color = "#003366"),
 
       # Axis lines
-      axis.line = element_line(color = "#000000", size = 0.5),
+      axis.line = ggplot2::element_line(color = "#000000", size = 0.5),
 
       # Panel border
-      panel.border = element_rect(color = "#000000", fill = NA, size = 0.5),
+      panel.border = ggplot2::element_rect(color = "#000000", fill = NA, size = 0.5),
 
       # Plot background
-      plot.background = element_rect(fill = "#FFFFFF", color = NA),
+      plot.background = ggplot2::element_rect(fill = "#FFFFFF", color = NA),
 
       # Complete theme
       complete = TRUE

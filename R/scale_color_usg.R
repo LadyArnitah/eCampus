@@ -8,6 +8,8 @@
 #' @param type Character. The type of colors to use within the selected branch. Default is `"Official Colors"`.
 #' @param reverse Logical. If `TRUE`, the order of colors is reversed. Default is `FALSE`.
 #' @param ... Additional arguments passed to `scale_color_manual()`.
+#' @importFrom ggplot2 scale_color_manual
+#' @importFrom stats setNames
 #'
 #' @return A function that, when applied to a ggplot object, maps categorical variables
 #' to colors from the selected eCampus palette.

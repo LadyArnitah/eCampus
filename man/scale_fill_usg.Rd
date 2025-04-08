@@ -13,15 +13,15 @@ scale_fill_usg(
 )
 }
 \arguments{
-\item{branch}{Character. The branch name in \code{ecampus_palettes}. Default is \code{"USG-eCore"}.}
+\item{branch}{The branch name. Default is "USG-eCore".}
 
-\item{type}{Character. The type of color palette within the branch. Default is \code{"Official Colors"}.}
+\item{type}{The type of palette. Default is "Official Colors".}
 
-\item{data}{A vector that determines the scale type. If \code{data} is a factor or character, a discrete scale is used. If numeric, a continuous scale is applied.}
+\item{data}{The data to be used for mapping colors. Can be factor, character, or numeric.}
 
-\item{reverse}{Logical. If \code{TRUE}, reverses the order of colors. Default is \code{FALSE}.}
+\item{reverse}{Logical, should the color order be reversed? Default is FALSE.}
 
-\item{...}{Additional arguments passed to \code{scale_fill_manual()} for discrete data or \code{scale_fill_gradientn()} for continuous data.}
+\item{...}{Additional arguments passed to \code{scale_fill_manual} or \code{scale_fill_gradientn}.}
 }
 \value{
 A ggplot2 scale object, either \code{scale_fill_manual()} (for discrete data) or \code{scale_fill_gradientn()} (for continuous data).

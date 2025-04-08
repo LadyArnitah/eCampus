@@ -8,11 +8,8 @@ library(plotly)
 library(colorspace)
 library(shiny)
 library(shinyjs)
-library(clipr)
-library(rsconnect)
 
 
-#rsconnect::deployApp('/home/ecampus-local-shared/eCampus_Package/eCampus/eCampusGradient/app')
 
 #-----------------------------#
 # Color Palette List          #
@@ -144,20 +141,34 @@ server <- function(input, output, session) {
   )
 
   observeEvent(input$copy_css, {
-    req(input$selected_colors)
-    clipr::write_clip(gradient_css())
-    showNotification("CSS copied to clipboard!", type = "message")
+    runjs(sprintf(
+      "navigator.clipboard.writeText(`%s`).then(() => {
+       Shiny.setInputValue('copy_success', 'css', {priority: 'event'});
+     }).catch(err => {
+       Shiny.setInputValue('copy_failure', 'css', {priority: 'event'});
+     });",
+      gradient_css()
+    ))
   })
+
 
   observeEvent(input$copy_url, {
     req(input$selected_colors)
-    url_gradient <- paste(
+    url_gradient <- paste0(
       "https://example.com/gradient?colors=",
-      URLencode(paste(input$selected_colors, collapse = ",")), sep = ""
+      URLencode(paste(input$selected_colors, collapse = ","))
     )
-    clipr::write_clip(url_gradient)
-    showNotification("URL copied to clipboard!", type = "message")
+
+    runjs(sprintf(
+      "navigator.clipboard.writeText(`%s`).then(() => {
+       Shiny.setInputValue('copy_success', 'url', {priority: 'event'});
+     }).catch(err => {
+       Shiny.setInputValue('copy_failure', 'url', {priority: 'event'});
+     });",
+      url_gradient
+    ))
   })
+
 
   output$download_svg <- downloadHandler(
     filename = "gradient.svg",

@@ -7,14 +7,14 @@
 \format{
 A nested list with named color palettes:
 \describe{
-\item{USG-eCore}{Contains official, secondary, and neutral colors.}
-\item{USG-eMajor}{Contains official, secondary, and neutral colors.}
-\item{USG-freeCampus}{Contains official and neutral colors.}
-\item{USG-eCampus}{Contains official, secondary, and neutral colors.}
+\item{USG-eCore}{A list of official, secondary, and neutral colors for the USG-eCore branch.}
+\item{USG-eMajor}{A list of official, secondary, and neutral colors for the USG-eMajor branch.}
+\item{USG-freeCampus}{A list of official and neutral colors for the USG-freeCampus branch.}
+\item{USG-eCampus}{A list of official, secondary, and neutral colors for the USG-eCampus branch.}
 }
 }
 \source{
-\link{URL or reference to the original color guidelines}
+Derived from internal ECampus branding guidelines.
 }
 \usage{
 ecampus_palettes
@@ -24,6 +24,7 @@ A collection of color palettes used for various ECampus branches.
 }
 \details{
 This dataset contains predefined colors categorized into official, secondary, and neutral colors
-for different ECampus branches.
+for different ECampus branches. The color palettes are structured to provide a consistent visual
+identity for each branch of ECampus.
 }
 \keyword{datasets}

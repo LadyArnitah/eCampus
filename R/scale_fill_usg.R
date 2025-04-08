@@ -3,12 +3,13 @@
 #' This function applies a custom fill scale using predefined color palettes from `ecampus_palettes`.
 #' It supports both discrete and continuous data, automatically determining the appropriate scale.
 #'
-#' @param branch Character. The branch name in `ecampus_palettes`. Default is `"USG-eCore"`.
-#' @param type Character. The type of color palette within the branch. Default is `"Official Colors"`.
-#' @param data A vector that determines the scale type. If `data` is a factor or character, a discrete scale is used. If numeric, a continuous scale is applied.
-#' @param reverse Logical. If `TRUE`, reverses the order of colors. Default is `FALSE`.
-#' @param ... Additional arguments passed to `scale_fill_manual()` for discrete data or `scale_fill_gradientn()` for continuous data.
-#'
+#' @param branch The branch name. Default is "USG-eCore".
+#' @param type The type of palette. Default is "Official Colors".
+#' @param data The data to be used for mapping colors. Can be factor, character, or numeric.
+#' @param reverse Logical, should the color order be reversed? Default is FALSE.
+#' @param ... Additional arguments passed to `scale_fill_manual` or `scale_fill_gradientn`.
+#' @importFrom ggplot2 scale_fill_manual scale_fill_gradientn
+#' @importFrom stats setNames
 #' @return A ggplot2 scale object, either `scale_fill_manual()` (for discrete data) or `scale_fill_gradientn()` (for continuous data).
 #'
 #' @examples
