@@ -5,7 +5,8 @@ Enita Omuvwie
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# eCampus <img src="eCampus/man/figures/ecampus.png" align="right" height="300"/>
+# eCampus "<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus.png" align="right" height="300"/>
+
 
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -27,8 +28,7 @@ The eCampus package contains color palettes for R inspired by the
 - [Package Functions](#package-functions)
 - [USG Institutions](#usg-institutions)
 - [eCampus Hues](#ecampus-hues)
-- [eCampus Enhanced Gradient
-  Generator](#ecampus-enhanced-gradient-generator)
+- [eCampus Enhanced Gradient Generator](#ecampus-enhanced-gradient-generator)
 - [Notes](#notes)
 
 ## Installation
@@ -51,7 +51,7 @@ the eCampus brand. The palettes are organized into four main categories.
 Each category contains a list of colors with their corresponding hex
 codes. You can view the interactive eCampus Color Guide below:
 
-<iframe src="eCampus/man/figures/palette_data.html" width="100%" height="500px">
+<iframe src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/palette_data.html" width="100%" height="500px">
 </iframe>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
@@ -147,7 +147,7 @@ To further interact with the color palettes, we can visualize them in a
 stacked bar plot with hover text showing the color name and hex code.You
 can view the interactive eCampus Colors below:
 
-<iframe src="eCampus/man/figures/ref_plt.html" width="100%" height="500px">
+<iframe src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.html" width="100%" height="500px">
 </iframe>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
@@ -239,7 +239,7 @@ for the five systems. The institutions are colored based on their system
 affiliation. The map is interactive, allowing users to hover over points
 for more information.
 
-<iframe src="eCampus/man/figures/usg_map.html" width="100%" height="500px">
+<iframe src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/usg_map.html" width="100%" height="500px">
 </iframe>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
@@ -321,7 +321,7 @@ The eCampus Hues are a collection of colors that can be used to create
 visually appealing and harmonious color schemes. This is a range of hues
 using the eCampus palette colors below:
 
-<iframe src="eCampus/man/figures/ecampus_hues.html" width="100%" height="500px">
+<iframe src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus_hues.html" width="100%" height="500px">
 </iframe>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
