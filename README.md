@@ -5,11 +5,11 @@ package: "eCampus"
 date: "`r Sys.Date()`"  # Automatically updates to the current date
 output: 
   github_document:
-  toc: true
-  number_sections: true
-  fig_caption:true
-  df_print:tibble
-  keep_md:true
+    toc: true
+    number_sections: true
+    fig_caption: true
+    df_print: tibble
+    keep_md: true
 vignette: >
   %\VignetteIndexEntry{ecampus-colors-guide}
   %\VignetteEngine{knitr::rmarkdown}
@@ -27,7 +27,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# eCampus <img src="/home/ecampus-local-shared/eCampus_Package/eCampus/man/figures/ecampus.png" align="right" height="300"/>
+# eCampus <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/main/man/figures/ecampus.png" align="right" height="300"/>
+
 
 The eCampus package provides a collection of color palettes and tools for working with the eCampus brand colors.
 
