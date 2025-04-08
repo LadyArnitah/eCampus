@@ -5,7 +5,8 @@ Enita Omuvwie
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# eCampus <img src="eCampus/man/figures/ecampus.png" align="right" height="300"/>
+# eCampus "<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus.png" align="right" height="300"/>
+
 
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
