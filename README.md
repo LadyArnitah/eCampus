@@ -1,8 +1,7 @@
 ---
 title: "eCampus Colors Guide"
 author: "Enita Omuvwie"
-package: "eCampus"
-date: "`r Sys.Date()`"  # Automatically updates to the current date
+date: "`r Sys.Date()`"
 output: 
   github_document:
     toc: true
@@ -15,6 +14,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
