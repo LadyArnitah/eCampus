@@ -146,7 +146,7 @@ To further interact with the color palettes, we can visualize them in a
 stacked bar plot with hover text showing the color name and hex code.You
 can view the interactive eCampus Colors below:
 
-**[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plot.html)**
+**[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
