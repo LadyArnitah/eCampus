@@ -51,7 +51,7 @@ the eCampus brand. The palettes are organized into four main categories.
 Each category contains a list of colors with their corresponding hex
 codes. You can view the interactive eCampus Color Guide below:
 
- **[View Interactive Color Table](https://ladyarnitah.github.io/eCampus/palette_data.html))**
+ **[View Interactive Color Table](https://ladyarnitah.github.io/eCampus/docs/figures/palette_data.html)**
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
