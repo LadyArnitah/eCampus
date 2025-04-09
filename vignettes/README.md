@@ -49,9 +49,10 @@ devtools::install_github("LadyArnitah/eCampus")
 The ecampus package includes color palettes for different branches of
 the eCampus brand. The palettes are organized into four main categories.
 Each category contains a list of colors with their corresponding hex
-codes. You can view the interactive eCampus Color Guide below:
+codes. You can view the interactive eCampus Color Guide  **[View Interactive Plot](https://LadyArnitah.github.io/eCampus/color_table.html)**
 
-[![Color Table Plot](man/figures/palette_table.png)](https://ladyarnitah.github.io/eCampus/color_table.html)
+
+<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/palette_table.png"/>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
@@ -144,9 +145,9 @@ datatable(
 
 To further interact with the color palettes, we can visualize them in a
 stacked bar plot with hover text showing the color name and hex code.You
-can view the interactive eCampus Colors below:
+can view the interactive eCampus Colors **[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
 
-**[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
+<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
@@ -235,9 +236,9 @@ system and the institutions plotted as points. The map uses a random
 categorical variable to color the counties and a manual color palette
 for the five systems. The institutions are colored based on their system
 affiliation. The map is interactive, allowing users to hover over points
-for more information.
+for more information. **[View USG Institutions Map](https://ladyarnitah.github.io/eCampus/usg_map.html)**
 
-**[View USG Institutions Map](https://ladyarnitah.github.io/eCampus/usg_map.html)**
+<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/usg_map.png"/>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
@@ -316,9 +317,9 @@ ggplotly(usg_map, tooltip = "text")
 
 The eCampus Hues are a collection of colors that can be used to create
 visually appealing and harmonious color schemes. This is a range of hues
-using the eCampus palette colors below:
+using the eCampus palette colors  **[View Interactive Hues Plot](https://ladyarnitah.github.io/eCampus/ecampus_hues.html)**
 
-**[View Interactive Hues Plot](https://ladyarnitah.github.io/eCampus/ecampus_hues.html)**
+<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/palette_hues.png"/>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
