@@ -184,7 +184,7 @@ interactive_plot <- ggplotly(stacked_plot, tooltip = "text")%>%
     yaxis= list(showticklabels = FALSE,title=""))
 
 # Print the interactive plot
-interactive_plot
+#interactive_plot
 
 # Save as html
 #htmlwidgets::saveWidget(interactive_plot, "ref_plt.html", selfcontained = TRUE)
