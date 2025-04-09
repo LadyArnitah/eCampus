@@ -51,7 +51,7 @@ the eCampus brand. The palettes are organized into four main categories.
 Each category contains a list of colors with their corresponding hex
 codes. You can view the interactive eCampus Color Guide below:
 
- **[View Interactive Color Table](https://ladyarnitah.github.io/eCampus/docs/figures/color_table.html)**
+ **[View Interactive Color Table](https://ladyarnitah.github.io/eCampus/color_table.html)**
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
@@ -146,8 +146,7 @@ To further interact with the color palettes, we can visualize them in a
 stacked bar plot with hover text showing the color name and hex code.You
 can view the interactive eCampus Colors below:
 
-<iframe src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.html" width="100%" height="500px">
-</iframe>
+**[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plot.html)**
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
@@ -238,8 +237,7 @@ for the five systems. The institutions are colored based on their system
 affiliation. The map is interactive, allowing users to hover over points
 for more information.
 
-<iframe src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/usg_map.html" width="100%" height="500px">
-</iframe>
+**[View USG Institutions Map](https://ladyarnitah.github.io/eCampus/usg_map.html)**
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
@@ -320,8 +318,7 @@ The eCampus Hues are a collection of colors that can be used to create
 visually appealing and harmonious color schemes. This is a range of hues
 using the eCampus palette colors below:
 
-<iframe src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus_hues.html" width="100%" height="500px">
-</iframe>
+**[View Interactive Hues Plot](https://ladyarnitah.github.io/eCampus/ecampus_hues.html)**
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
