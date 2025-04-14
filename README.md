@@ -200,9 +200,10 @@ print(colors)
 # Example usage
 library(eCampus)
 library(ggplot2)
-ggplot(data, aes(x, y)) +
+ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
-  eCampus_theme()
+  eCampus_theme() +
+  labs(title = "Fuel Economy vs. Weight", x = "Weight (1000 lbs)", y = "Miles per Gallon")
 ```
 
 3.  **scale_color_usg()**: Creates a color scale for ggplot2 based on
@@ -210,11 +211,18 @@ ggplot(data, aes(x, y)) +
 
 ``` r
 # Example usage
-library(eCampus)
 library(ggplot2)
-ggplot(data, aes(x, y, color = category)) +
-  geom_point() +
-  scale_color_usg(branch = "USG-eCore", type = "Official Colors")
+library(eCampus)
+df_cont <- data.frame(
+  x = rnorm(100),
+  y = rnorm(100),
+  z = rnorm(100)  # numeric color scale
+)
+
+ggplot(df_cont, aes(x = x, y = y, color = z)) +
+  geom_point(size = 4) +
+  scale_color_usg(branch = "USG-eCore", type = "Official Colors", continuous = TRUE) +
+  eCampus_theme()
 ```
 
 4.  **scale_fill_usg()**: Creates a fill scale for ggplot2 based on
@@ -222,11 +230,17 @@ ggplot(data, aes(x, y, color = category)) +
 
 ``` r
 # Example usage
-library(eCampus)
 library(ggplot2)
-ggplot(data, aes(x, fill = category)) +
+library(eCampus)
+
+# Convert 'cyl' to factor for discrete coloring
+mtcars$cyl <- as.factor(mtcars$cyl)
+
+# Bar chart using scale_fill_usg with discrete values
+ggplot(mtcars, aes(x = cyl, fill = cyl)) +
   geom_bar() +
-  scale_fill_usg(branch = "USG-eCore", type = "Official Colors")
+  scale_fill_usg(branch = "USG-eCore", type = "Official Colors")() +  # Add parentheses here
+  eCampus_theme()
 ```
 
 ## USG Institutions
