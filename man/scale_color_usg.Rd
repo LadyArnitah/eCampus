@@ -2,58 +2,57 @@
 % Please edit documentation in R/scale_color_usg.R
 \name{scale_color_usg}
 \alias{scale_color_usg}
-\title{Custom Color Scale for eCampus Data}
+\title{eCampus Color Scale for ggplot2}
 \usage{
 scale_color_usg(
   branch = "USG-eCore",
   type = "Official Colors",
   reverse = FALSE,
+  continuous = FALSE,
   ...
 )
 }
 \arguments{
-\item{branch}{Character. The eCampus branch to retrieve colors from. Default is \code{"USG-eCore"}.}
+\item{branch}{Character. The eCampus branch to use, such as "USG-eCore", "eMajor", etc.}
 
-\item{type}{Character. The type of colors to use within the selected branch. Default is \code{"Official Colors"}.}
+\item{type}{Character. The type of color palette to use (e.g., "Official Colors", "Accent Colors").}
 
-\item{reverse}{Logical. If \code{TRUE}, the order of colors is reversed. Default is \code{FALSE}.}
+\item{reverse}{Logical. Whether to reverse the order of the colors. Default is \code{FALSE}.}
 
-\item{...}{Additional arguments passed to \code{scale_color_manual()}.}
+\item{continuous}{Logical. If \code{TRUE}, uses a continuous gradient. If \code{FALSE}, uses a discrete palette. Default is \code{FALSE}.}
+
+\item{...}{Additional arguments passed to \code{ggplot2::scale_color_manual()} or \code{ggplot2::scale_color_gradientn()}.}
 }
 \value{
-A function that, when applied to a ggplot object, maps categorical variables
-to colors from the selected eCampus palette.
+A ggplot2 scale object that applies the specified eCampus color palette.
 }
 \description{
-This function provides a custom discrete color scale for ggplot2 visualizations,
-using predefined color palettes stored in \code{ecampus_palettes}. It allows users to
-specify a branch, color type, and optionally reverse the color order.
-}
-\details{
-This function:
-\itemize{
-\item Extracts the specified color set from \code{ecampus_palettes}.
-\item Assigns colors to unique categorical levels in the data.
-\item Issues a warning if there are more categories than available colors, recycling colors if necessary.
-\item Returns a \code{scale_color_manual()} function that applies the selected colors.
-}
+Applies a custom color scale to ggplot2 plots using eCampus palette colors.
+Supports both discrete and continuous scales depending on the nature of the data.
 }
 \examples{
-\dontrun{
-# Example dataset
 library(ggplot2)
+
+# Discrete example
 df <- data.frame(
   category = rep(c("A", "B", "C", "D"), each = 5),
   x = rnorm(20),
   y = rnorm(20)
 )
-
-# Apply the custom scale to a ggplot
 ggplot(df, aes(x = x, y = y, color = category)) +
   geom_point(size = 4) +
-  scale_color_usg(branch = "USG-eCore", type = "Official Colors", reverse = TRUE)(df) +
-  theme_minimal() +
-  labs(title = "Custom Color Scale Example (Discrete)")
-}
+  scale_color_usg(branch = "USG-eCore", type = "Official Colors") +
+  eCampus_theme()
+
+# Continuous example
+df2 <- data.frame(
+  x = rnorm(100),
+  y = rnorm(100),
+  z = rnorm(100)
+)
+ggplot(df2, aes(x = x, y = y, color = z)) +
+  geom_point(size = 3) +
+  scale_color_usg(branch = "USG-eCore", type = "Official Colors", continuous = TRUE) +
+  eCampus_theme()
 
 }

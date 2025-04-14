@@ -12,27 +12,24 @@ eCampus_theme(base_size = 14, base_family = "Arial")
 \item{base_family}{Character. Base font family for text elements. Default is "Arial".}
 }
 \value{
-A ggplot2 theme object with customized elements including titles, axis text,
+A \code{ggplot2} theme object with customized elements including titles, axis text,
 legend styles, and background settings.
 }
 \description{
-This function defines a custom ggplot2 theme with a clean and structured appearance,
-designed for eCampus-related visualizations. It applies a minimal theme with specific
-color and text settings for consistency.
+This function defines a custom \code{ggplot2} theme with a clean and structured appearance,
+designed for eCampus-related visualizations. It builds on \code{theme_minimal} and applies
+specific color and text settings for a polished, professional look.
 }
 \details{
 The theme applies:
 \itemize{
-\item A centered, bold plot title in deep blue (\verb{#003366}).
-\item Italicized axis titles in deep blue (\verb{#003366}).
-\item Black axis text.
-\item Light gray (\verb{#f0f0f0}) panel background.
-\item Grid lines in soft gray shades.
-\item A neatly formatted legend with a white background.
-\item Bottom-aligned legend positioning.
-\item Well-defined facet labels (strip text).
-\item Black axis lines and panel borders.
-\item A white overall plot background.
+\item A centered, bold plot title in deep blue (\verb{#003366})
+\item Italicized axis titles in deep blue (\verb{#003366})
+\item Black axis text
+\item A white plot background with no grid lines
+\item A neatly formatted legend with a white background, positioned at the bottom
+\item Well-defined facet labels (strip text)
+\item Black axis lines and panel borders
 }
 }
 \examples{
