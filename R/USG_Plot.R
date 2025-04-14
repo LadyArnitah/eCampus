@@ -83,3 +83,11 @@ plot_palettes_save_png <- function(palette_data) {
 
 # Run the function to plot and save the PNG files
 plot_palettes_save_png(palette_data)
+
+
+# Merging the logo and the branch plot together
+library(magick)
+library(grid)
+library(gridExtra)
+
+# Function to merge logo and plot
