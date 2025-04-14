@@ -52,12 +52,12 @@ Each category contains a list of colors with their corresponding hex
 codes. You can view the interactive eCampus Color Guide  **[View Interactive Plot](https://LadyArnitah.github.io/eCampus/color_table.html)**
 
 
-<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/palette_table.png"/>
+<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/final_USG-merged.png"/>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 
-The code to reproduce the table is below:
+The code to reproduce the interactive table is below:
 
 ``` r
 # Load libraries
@@ -319,7 +319,7 @@ The eCampus Hues are a collection of colors that can be used to create
 visually appealing and harmonious color schemes. This is a range of hues
 using the eCampus palette colors  **[View Interactive Hues Plot](https://ladyarnitah.github.io/eCampus/ecampus_hues.html)**
 
-<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/palette_hues.png"/>
+<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus_hues.png"/>
 
 Here are examples of the eCampus palette with credits from \[Learn UI
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
