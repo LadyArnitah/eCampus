@@ -625,3 +625,7 @@ shinyApp(ui, server)
 - The eCampus package is designed to be user-friendly and provides a
   variety of functions to work with color palettes.
 - The package is open-source and contributions are welcome.
+- To download the `tar.gz`file from the **Assets** section below:
+```R
+install.packages("artifacts/eCampus_0.0.0.9000.tar.gz", repos = NULL, type="source")
+```
