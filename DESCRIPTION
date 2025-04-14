@@ -18,6 +18,10 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports:
-    ggplot2
+    ggplot2,
+    dplyr,
+    ggplot2,
+    tidyr,
+    stringr
 URL: https://github.com/LadyArnitah/eCampus
 BugReports: https://github.com/LadyArnitah/eCampus/issues
