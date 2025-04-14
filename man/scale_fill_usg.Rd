@@ -39,13 +39,7 @@ It validates the \code{branch} and \code{type} arguments against the keys in \co
 }
 }
 \examples{
-# Define a sample palette
-ecampus_palettes <- list(
-  "USG-eCore" = list(
-    "Official Colors" = c("#FF0000", "#00FF00", "#0000FF")
-  )
-)
-
+library(ggplot2)
 # Example 1: Discrete data
 ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
   geom_bar() +

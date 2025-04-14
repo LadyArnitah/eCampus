@@ -19,13 +19,7 @@
 #' - If `discrete = FALSE`, it applies a gradient color scale using `ggplot2::scale_fill_gradientn`.
 #'
 #' @examples
-#' # Define a sample palette
-#' ecampus_palettes <- list(
-#'   "USG-eCore" = list(
-#'     "Official Colors" = c("#FF0000", "#00FF00", "#0000FF")
-#'   )
-#' )
-#'
+#' library(ggplot2)
 #' # Example 1: Discrete data
 #' ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
 #'   geom_bar() +
@@ -54,14 +48,21 @@ scale_fill_usg <- function(branch = "USG-eCore", type = "Official Colors", rever
 
   # Retrieve and reverse colors if needed
   colors <- ecampus_palettes[[branch]][[type]]
+
+  # Check if colors are valid
+  if (length(colors) == 0) {
+    stop("No colors found for the specified branch and type.")
+  }
+
+  # Reverse the colors if specified
   if (reverse) colors <- rev(colors)
 
   # Return the appropriate scale
   if (discrete) {
     # Use manual color scale for discrete data
-    ggplot2::scale_fill_manual(values = unname(colors), ...)
+    return(ggplot2::scale_fill_manual(values = unname(colors), ...))
   } else {
     # Use gradient color scale for continuous data
-    ggplot2::scale_fill_gradientn(colors = colors, ...)
+    return(ggplot2::scale_fill_gradientn(colors = colors, ...))
   }
 }
