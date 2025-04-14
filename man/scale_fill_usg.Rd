@@ -2,56 +2,58 @@
 % Please edit documentation in R/scale_fill_usg.R
 \name{scale_fill_usg}
 \alias{scale_fill_usg}
-\title{Custom Fill Scale for USG eCampus Palettes}
+\title{Custom Color Scale for USG eCore}
 \usage{
 scale_fill_usg(
   branch = "USG-eCore",
   type = "Official Colors",
-  data,
   reverse = FALSE,
+  discrete = TRUE,
   ...
 )
 }
 \arguments{
-\item{branch}{The branch name. Default is "USG-eCore".}
+\item{branch}{A character string specifying the branch of the \code{ecampus_palettes} to use. Default is \code{"USG-eCore"}.}
 
-\item{type}{The type of palette. Default is "Official Colors".}
+\item{type}{A character string specifying the type of colors to use (e.g., "Official Colors"). Default is \code{"Official Colors"}.}
 
-\item{data}{The data to be used for mapping colors. Can be factor, character, or numeric.}
+\item{reverse}{A logical value indicating whether to reverse the color order. Default is \code{FALSE}.}
 
-\item{reverse}{Logical, should the color order be reversed? Default is FALSE.}
+\item{discrete}{A logical value indicating whether the data is discrete or continuous. Default is \code{TRUE}.}
 
-\item{...}{Additional arguments passed to \code{scale_fill_manual} or \code{scale_fill_gradientn}.}
+\item{...}{Additional arguments passed to \code{ggplot2::scale_fill_manual} for discrete data or \code{ggplot2::scale_fill_gradientn} for continuous data.}
 }
 \value{
-A ggplot2 scale object, either \code{scale_fill_manual()} (for discrete data) or \code{scale_fill_gradientn()} (for continuous data).
+A ggplot2 scale object to be used with the \code{fill} aesthetic.
 }
 \description{
-This function applies a custom fill scale using predefined color palettes from \code{ecampus_palettes}.
-It supports both discrete and continuous data, automatically determining the appropriate scale.
+This function applies a custom color palette to ggplot2 plots based on the \code{ecampus_palettes} object.
+It supports both discrete and continuous data and allows for reversing the color order.
+}
+\details{
+This function checks for the existence of the \code{ecampus_palettes} object in the global environment.
+It validates the \code{branch} and \code{type} arguments against the keys in \code{ecampus_palettes}.
+\itemize{
+\item If \code{discrete = TRUE}, it applies a manual color scale using \code{ggplot2::scale_fill_manual}.
+\item If \code{discrete = FALSE}, it applies a gradient color scale using \code{ggplot2::scale_fill_gradientn}.
+}
 }
 \examples{
-\dontrun{
-# Example for discrete data
-df_discrete <- data.frame(
-  category = c("A", "B", "C", "D"),
-  value = c(10, 15, 7, 12)
+# Define a sample palette
+ecampus_palettes <- list(
+  "USG-eCore" = list(
+    "Official Colors" = c("#FF0000", "#00FF00", "#0000FF")
+  )
 )
-ggplot(df_discrete, aes(x = category, y = value, fill = category)) +
-  geom_bar(stat = "identity") +
-  scale_fill_usg(branch = "USG-eCore", type = "Official Colors", data = df_discrete$category) +
-  theme_minimal()
 
-# Example for continuous data
-df_continuous <- data.frame(
-  x = 1:10,
-  y = 1:10,
-  z = rnorm(10)
-)
-ggplot(df_continuous, aes(x = x, y = y, fill = z)) +
+# Example 1: Discrete data
+ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
+  geom_bar() +
+  scale_fill_usg(branch = "USG-eCore", type = "Official Colors")
+
+# Example 2: Continuous data
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, fill = Sepal.Length)) +
   geom_tile() +
-  scale_fill_usg(branch = "USG-eCore", type = "Official Colors", data = df_continuous$z) +
-  theme_minimal()
-}
+  scale_fill_usg(branch = "USG-eCore", type = "Official Colors", discrete = FALSE)
 
 }
