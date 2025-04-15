@@ -51,28 +51,37 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       selectInput("palette", "Choose a Palette:", choices = names(ecampus_palette)),
-      uiOutput("category_ui"),
       uiOutput("colors_ui"),
 
       selectInput("gradient_type", "Gradient Type:", choices = c("Linear", "Radial", "Conic", "Linear-Repeating", "Radial-Repeating", "Conic-Repeating")),
-
       sliderInput("angle", "Gradient Angle:", min = 0, max = 360, value = 0, step = 5),
       selectInput("direction", "Interpolation Direction:", choices = c("To Right", "To Left", "To Top", "To Bottom")),
-      sliderInput("precision", "Gradient Precision:", min = 10, max = 200, value = 100),
+      sliderInput("precision", "Gradient Precision:", min = 10, max = 100, value = 50),
 
       selectInput("interpolation_type", "Interpolation Type:", choices = c("RGB Blend", "Perceptual HCL", "Smooth Interpolation")),
       selectInput("ease_function", "Ease Function:", choices = c("Linear", "Ease-In", "Ease-Out")),
 
-      downloadButton("download_gradient", "Export Gradient as CSS"),
       actionButton("copy_css", "Copy CSS"),
-      actionButton("copy_url", "Copy URL Gradient"),
-      downloadButton("download_svg", "Export as SVG")
+      downloadButton("download_gradient", "Export as CSS"),
+      downloadButton("download_svg", "Export as SVG"),
+      actionButton("copy_gradient_colors", "Copy Gradient Colors"),
+      downloadButton("download_gradient_colors", "Export Gradient Colors as .txt")
     ),
 
     mainPanel(
       div(id = "preview_element", style = "width:100%;height:300px;"),
       textOutput("gradient_css"),
-      plotlyOutput("gradient_plot")
+      plotlyOutput("gradient_plot"),
+      h4("Gradient Preview:"),
+      verbatimTextOutput("gradient_colors_list", placeholder = FALSE),
+      tags$style(HTML("
+    #gradient_colors_list {
+      max-height: none; /* Ensures the container grows dynamically */
+      overflow: visible; /* Prevents scrolling */
+      white-space: normal; /* Wraps long lines instead of scrolling horizontally */
+    }
+  "))
+
     )
   )
 )
@@ -80,19 +89,58 @@ ui <- fluidPage(
 # Server logic
 server <- function(input, output, session) {
 
-  output$category_ui <- renderUI({
-    req(input$palette)
-    selectInput("category", "Choose a Category:", choices = names(ecampus_palette[[input$palette]]))
-  })
-
   output$colors_ui <- renderUI({
-    req(input$palette, input$category)
+    req(input$palette)
     selectizeInput("selected_colors", "Select Colors:",
-                   choices = ecampus_palette[[input$palette]][[input$category]],
-                   multiple = TRUE, options = list(maxItems = 5))
+                   choices = ecampus_palette[[input$palette]],
+                   multiple = TRUE, options = list(maxItems = 6))
   })
 
   gradient_css <- reactiveVal("")
+
+
+  gradient_colors <- reactive({
+    req(input$selected_colors)
+
+    precision <- input$precision
+    color_list <- colorRampPalette(input$selected_colors)(precision)
+    color_list
+  })
+
+  output$gradient_colors_list <- renderText({
+    req(gradient_colors())
+    paste(gradient_colors(), collapse = ",")
+  })
+
+  observeEvent(input$copy_gradient_colors, {
+    req(gradient_colors())
+    gradient_text <- paste(gradient_colors(), collapse = ", ")
+
+    # Use JavaScript to copy the gradient colors to the clipboard
+    shinyjs::runjs(sprintf("
+    var clipboard = document.createElement('textarea');
+    clipboard.style.position = 'absolute';
+    clipboard.style.left = '-9999px';
+    document.body.appendChild(clipboard);
+    clipboard.value = `%s`;
+    clipboard.select();
+    document.execCommand('copy');
+    document.body.removeChild(clipboard);
+  ", gradient_text))
+
+    showNotification("Gradient colors copied to clipboard!", type = "message")
+  })
+
+  output$download_gradient_colors <- downloadHandler(
+    filename = function() {
+      paste("gradient_colors-", Sys.Date(), ".txt", sep = "")
+    },
+    content = function(file) {
+      req(gradient_colors())
+      writeLines(gradient_colors(), file)
+    }
+  )
+
 
   observe({
     req(input$selected_colors)
@@ -151,24 +199,15 @@ server <- function(input, output, session) {
     ))
   })
 
-
-  observeEvent(input$copy_url, {
-    req(input$selected_colors)
-    url_gradient <- paste0(
-      "https://example.com/gradient?colors=",
-      URLencode(paste(input$selected_colors, collapse = ","))
-    )
-
-    runjs(sprintf(
-      "navigator.clipboard.writeText(`%s`).then(() => {
-       Shiny.setInputValue('copy_success', 'url', {priority: 'event'});
-     }).catch(err => {
-       Shiny.setInputValue('copy_failure', 'url', {priority: 'event'});
-     });",
-      url_gradient
-    ))
-  })
-
+  output$download_css <- downloadHandler(
+    filename = function() {
+      paste("gradient-", Sys.Date(), ".css", sep = "")
+    },
+    content = function(file) {
+      req(css_gradient_code())
+      writeLines(css_gradient_code(), file)
+    }
+  )
 
   output$download_svg <- downloadHandler(
     filename = "gradient.svg",

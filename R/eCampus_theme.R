@@ -12,7 +12,7 @@
 #'
 #' @details The theme applies:
 #' - A centered, bold plot title in deep blue (`#003366`)
-#' - Italicized axis titles in deep blue (`#003366`)
+#' - Bold axis titles in deep blue (`#003366`)
 #' - Black axis text
 #' - A white plot background with no grid lines
 #' - A neatly formatted legend with a white background, positioned at the bottom
@@ -34,7 +34,7 @@ eCampus_theme <- function(base_size = 14, base_family = "Arial") {
       plot.title = ggplot2::element_text(size = 16, face = "bold", color = "#003366", hjust = 0.5),
 
       # Axis titles
-      axis.title = ggplot2::element_text(size = 12, face = "italic", color = "#003366"),
+      axis.title = ggplot2::element_text(size = 10, face = "bold", color = "#003366"),
 
       # Axis text
       axis.text = ggplot2::element_text(size = 10, color = "#000000"),

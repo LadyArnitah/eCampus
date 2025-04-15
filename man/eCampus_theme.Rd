@@ -24,7 +24,7 @@ specific color and text settings for a polished, professional look.
 The theme applies:
 \itemize{
 \item A centered, bold plot title in deep blue (\verb{#003366})
-\item Italicized axis titles in deep blue (\verb{#003366})
+\item Bold axis titles in deep blue (\verb{#003366})
 \item Black axis text
 \item A white plot background with no grid lines
 \item A neatly formatted legend with a white background, positioned at the bottom
