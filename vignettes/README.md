@@ -190,8 +190,19 @@ the package. Below are examples of how to use these functions:
 ``` r
 # Example usage
 library(eCampus)
-colors <- get_ecampus_colors("eCore_Green", "eMajor_Navy")
-print(colors)
+ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
+  geom_bar() +
+  scale_fill_manual(values = setNames(
+    get_ecampus_colors(c("eCore_Green", "eCore_Teal", "eMajor_Navy")),
+    c("4", "6", "8")
+  )) +
+  theme_minimal()
+
+# Example using a single color
+ggplot(mtcars, aes(x = factor(cyl))) +
+  geom_bar(fill = get_ecampus_colors("eMajor_Navy")) +
+  theme_minimal() +
+  labs(title = "Bar Plot with eCore_Green", x = "Cylinders", y = "Count")
 ```
 
 2.  **eCampus_theme()**: Applies a custom theme to ggplot2 plots.
