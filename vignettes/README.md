@@ -7,7 +7,6 @@ Enita Omuvwie
 
 # eCampus <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus.png" align="right" height="300"/>
 
-
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Made with
@@ -51,11 +50,7 @@ the eCampus brand. The palettes are organized into four main categories.
 Each category contains a list of colors with their corresponding hex
 codes. You can view the interactive eCampus Color Guide  **[View Interactive Plot](https://LadyArnitah.github.io/eCampus/color_table.html)**
 
-
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/final_USG-merged.png"/>
-
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 
 The code to reproduce the interactive table is below:
 
@@ -148,9 +143,6 @@ stacked bar plot with hover text showing the color name and hex code.You
 can view the interactive eCampus Colors **[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>
-
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 
 The code to reproduce the palette is below:
 
@@ -251,9 +243,6 @@ for more information. **[View USG Institutions Map](https://ladyarnitah.github.i
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/usg_map.png"/>
 
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
-
 The code to reproduce the map is below:
 
 ``` r
@@ -331,9 +320,6 @@ visually appealing and harmonious color schemes. This is a range of hues
 using the eCampus palette colors  **[View Interactive Hues Plot](https://ladyarnitah.github.io/eCampus/ecampus_hues.html)**
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus_hues.png"/>
-
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 
 The code to reproduce the palette range of hues is below:
 
@@ -431,7 +417,6 @@ To run this app locally, use the following command:
 # Run the app
 shiny::runGitHub("eCampusGradient", "LadyArnitah")
 ```
-
 Here is the code to reproduce the eCampus Enhanced Gradient Generator:
 
 ``` r
@@ -543,7 +528,6 @@ server <- function(input, output, session) {
     ))
   })
 
-
   observeEvent(input$copy_url, {
     req(input$selected_colors)
     url_gradient <- paste0(
@@ -636,3 +620,5 @@ shinyApp(ui, server)
 - The eCampus package is designed to be user-friendly and provides a
   variety of functions to work with color palettes.
 - The package is open-source and contributions are welcome.
+- Package plots were inspired by \[Learn UI
+Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
