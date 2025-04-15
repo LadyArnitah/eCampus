@@ -54,9 +54,6 @@ codes. You can view the interactive eCampus Color Guide  **[View Interactive Plo
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/final_USG-merged.png"/>
 
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
-
 The code to reproduce the interactive table is below:
 
 ``` r
@@ -148,9 +145,6 @@ stacked bar plot with hover text showing the color name and hex code.You
 can view the interactive eCampus Colors **[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>
-
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 
 The code to reproduce the palette is below:
 
@@ -251,9 +245,6 @@ for more information. **[View USG Institutions Map](https://ladyarnitah.github.i
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/usg_map.png"/>
 
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
-
 The code to reproduce the map is below:
 
 ``` r
@@ -331,9 +322,6 @@ visually appealing and harmonious color schemes. This is a range of hues
 using the eCampus palette colors  **[View Interactive Hues Plot](https://ladyarnitah.github.io/eCampus/ecampus_hues.html)**
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus_hues.png"/>
-
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 
 The code to reproduce the palette range of hues is below:
 
@@ -636,3 +624,5 @@ shinyApp(ui, server)
 - The eCampus package is designed to be user-friendly and provides a
   variety of functions to work with color palettes.
 - The package is open-source and contributions are welcome.
+- Package plots were inspired by \[Learn UI
+Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
