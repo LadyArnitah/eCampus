@@ -7,7 +7,6 @@ Enita Omuvwie
 
 # eCampus <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus.png" align="right" height="300"/>
 
-
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Made with
@@ -50,7 +49,6 @@ The ecampus package includes color palettes for different branches of
 the eCampus brand. The palettes are organized into four main categories.
 Each category contains a list of colors with their corresponding hex
 codes. You can view the interactive eCampus Color Guide  **[View Interactive Plot](https://LadyArnitah.github.io/eCampus/color_table.html)**
-
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/final_USG-merged.png"/>
 
@@ -419,7 +417,6 @@ To run this app locally, use the following command:
 # Run the app
 shiny::runGitHub("eCampusGradient", "LadyArnitah")
 ```
-
 Here is the code to reproduce the eCampus Enhanced Gradient Generator:
 
 ``` r
@@ -530,7 +527,6 @@ server <- function(input, output, session) {
       gradient_css()
     ))
   })
-
 
   observeEvent(input$copy_url, {
     req(input$selected_colors)
