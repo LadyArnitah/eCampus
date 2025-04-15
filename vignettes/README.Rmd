@@ -264,11 +264,8 @@ county_colors <- data.frame(subregion = unique_counties, category = color_catego
 ga_counties <- ga_counties %>%
   left_join(county_colors, by = "subregion")
 
-# Connect to the database and fetch institution data
-con <- DBI::dbConnect(odbc::odbc(), "sqlserver-ecampus")
-sql_query <- "SELECT Institution, IntitutionLatitude, InstitutionLongitude, System FROM [eCampus].[dbo].[ref.Institutions]"
-institutions <- DBI::dbGetQuery(con, sql_query)
-DBI::dbDisconnect(con)
+# Read in the dataset
+institutions <- read.csv("./eCampus/System dataset.csv")
 
 # Ensure latitude and longitude are numeric
 institutions <- institutions %>%
