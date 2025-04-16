@@ -49,7 +49,7 @@ devtools::install_github("LadyArnitah/eCampus")
 The ecampus package includes color palettes for different branches of
 the eCampus brand. The palettes are organized into four main categories.
 Each category contains a list of colors with their corresponding hex
-codes. You can view the interactive eCampus Color Guide  **[View Interactive Plot](https://LadyArnitah.github.io/eCampus/color_table.html)**
+codes. You can view the interactive eCampus Color Guide  **[View Palette Table](https://LadyArnitah.github.io/eCampus/color_table.html)**
 
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/final_USG-merged.png"/>
