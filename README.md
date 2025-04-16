@@ -54,9 +54,6 @@ codes. You can view the interactive eCampus Color Guide  **[View Interactive Plo
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/final_USG-merged.png"/>
 
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
-
 The code to reproduce the interactive table is below:
 
 ``` r
@@ -149,9 +146,6 @@ can view the interactive eCampus Colors **[View Interactive Palette Plot](https:
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>
 
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
-
 The code to reproduce the palette is below:
 
 ``` r
@@ -190,8 +184,19 @@ the package. Below are examples of how to use these functions:
 ``` r
 # Example usage
 library(eCampus)
-colors <- get_ecampus_colors("eCore_Green", "eMajor_Navy")
-print(colors)
+ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
+  geom_bar() +
+  scale_fill_manual(values = setNames(
+    get_ecampus_colors(c("eCore_Green", "eCore_Teal", "eMajor_Navy")),
+    c("4", "6", "8")
+  )) +
+  theme_minimal()
+
+# Plot using a single color
+ggplot(mtcars, aes(x = factor(cyl))) +
+  geom_bar(fill = get_ecampus_colors("eMajor_Navy")) +
+  theme_minimal() +
+  labs(title = "Bar Plot with eCore_Green", x = "Cylinders", y = "Count")
 ```
 
 2.  **eCampus_theme()**: Applies a custom theme to ggplot2 plots.
@@ -253,9 +258,6 @@ affiliation. The map is interactive, allowing users to hover over points
 for more information. **[View USG Institutions Map](https://ladyarnitah.github.io/eCampus/usg_map.html)**
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/usg_map.png"/>
-
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 
 The code to reproduce the map is below:
 
@@ -331,9 +333,6 @@ visually appealing and harmonious color schemes. This is a range of hues
 using the eCampus palette colors  **[View Interactive Hues Plot](https://ladyarnitah.github.io/eCampus/ecampus_hues.html)**
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ecampus_hues.png"/>
-
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 
 The code to reproduce the palette range of hues is below:
 
@@ -418,9 +417,6 @@ combinations interactively.
 
 **[![Launch Shiny
 App](https://img.shields.io/badge/Shiny%20App-Launch-blue?logo=rstudio)](https://ladyarnitah.shinyapps.io/eCampusGradient/)**
-
-Here are examples of the eCampus palette with credits from \[Learn UI
-Design\] (<https://www.learnui.design/tools/gradient-generator.html>).
 
 To run this app locally, use the following command:
 
@@ -636,6 +632,8 @@ shinyApp(ui, server)
 - The eCampus package is designed to be user-friendly and provides a
   variety of functions to work with color palettes.
 - The package is open-source and contributions are welcome.
+- All plots and shiny were inspired by \[Learn UI
+Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 - To download the `tar.gz`file from the **Assets** section below:
 ```R
 install.packages("artifacts/eCampus_0.0.0.9000.tar.gz", repos = NULL, type="source")
