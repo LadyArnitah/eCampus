@@ -182,8 +182,9 @@ the package. Below are examples of how to use these functions:
     names.
 
 ``` r
-# Example usage
+# Example usage for multiple colors
 library(eCampus)
+library(ggplot2)
 ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
   geom_bar() +
   scale_fill_manual(values = setNames(
@@ -191,6 +192,15 @@ ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
     c("4", "6", "8")
   )) +
   theme_minimal()
+
+# Another Example usage
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 4) +
+  scale_color_manual(
+    values = setNames(get_ecampus_colors("eMajor_Navy", "eCore_Teal", "eCampus_Red"), levels(iris$Species))
+  ) +  # Map each color to a species level
+  theme_minimal() +
+  ggtitle("Sepal Dimensions by Species (Multiple Colors)")
 
 # Plot using a single color
 ggplot(mtcars, aes(x = factor(cyl))) +
