@@ -1,31 +1,39 @@
-#' Get ECampus Colors by Name
+#' Retrieve Colors from eCampus Palettes
 #'
-#' This function retrieves one or more color hex codes from the `ecampus_palettes` dataset.
+#' This function retrieves color values from the eCampus palettes based on the provided color names.
+#' You can pass a single color name or multiple color names as arguments. The function will return
+#' the corresponding color values from the `ecampus_palette`.
 #'
-#' @param ... One or more color names as character strings.
+#' @param ... One or more color names (as strings) from the eCampus palettes.
 #'
-#' @return A named vector of hex codes for the requested colors.
+#' @return A named character vector containing the color values corresponding to the provided color names.
+#'
 #' @examples
-#' get_ecampus_colors(c("eCore_Green", "eCore_Teal"))
-#' get_ecampus_colors("eCore_OER_Orange", palette = "USG-eCore")
-#' get_ecampus_colors("eMajor_Navy", palette = "all") # Search in all branches
+#' # Example 1: Retrieve a single color
+#' get_ecampus_colors("eCore_Teal")
+#'
+#' # Example 2: Retrieve multiple colors
+#' get_ecampus_colors("eMajor_Navy", "eCore_Teal", "eCore_Purple")
+#'
+#' @importFrom stats setNames
 #' @export
 get_ecampus_colors <- function(...) {
-  # Combine all input color names into a single character vector
-  color_names <- unlist(list(...))
+  # Accept both individual names and character vectors
+  args <- list(...)
+  color_names <- unlist(args, use.names = FALSE)
 
-  # Initialize a vector to store the results
+  # Initialize a vector to store results
   color_values <- character(length(color_names))
   names(color_values) <- color_names
 
-  # Iterate over each color name
+  # Search each name in all ecampus_palettes
   for (i in seq_along(color_names)) {
-    # Search for the color in ecampus_palettes
     found <- FALSE
     for (branch in names(ecampus_palettes)) {
       for (category in names(ecampus_palettes[[branch]])) {
-        if (color_names[i] %in% names(ecampus_palettes[[branch]][[category]])) {
-          color_values[i] <- ecampus_palettes[[branch]][[category]][color_names[i]]
+        palette <- ecampus_palettes[[branch]][[category]]
+        if (color_names[i] %in% names(palette)) {
+          color_values[i] <- palette[[color_names[i]]]
           found <- TRUE
           break
         }
@@ -39,4 +47,5 @@ get_ecampus_colors <- function(...) {
 
   return(color_values)
 }
+
 

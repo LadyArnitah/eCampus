@@ -2,21 +2,26 @@
 % Please edit documentation in R/get_ecampus_colors.R
 \name{get_ecampus_colors}
 \alias{get_ecampus_colors}
-\title{Get ECampus Colors by Name}
+\title{Retrieve Colors from eCampus Palettes}
 \usage{
 get_ecampus_colors(...)
 }
 \arguments{
-\item{...}{One or more color names as character strings.}
+\item{...}{One or more color names (as strings) from the eCampus palettes.}
 }
 \value{
-A named vector of hex codes for the requested colors.
+A named character vector containing the color values corresponding to the provided color names.
 }
 \description{
-This function retrieves one or more color hex codes from the \code{ecampus_palettes} dataset.
+This function retrieves color values from the eCampus palettes based on the provided color names.
+You can pass a single color name or multiple color names as arguments. The function will return
+the corresponding color values from the \code{ecampus_palette}.
 }
 \examples{
-get_ecampus_colors(c("eCore_Green", "eCore_Teal"))
-get_ecampus_colors("eCore_OER_Orange", palette = "USG-eCore")
-get_ecampus_colors("eMajor_Navy", palette = "all") # Search in all branches
+# Example 1: Retrieve a single color
+get_ecampus_colors("eCore_Teal")
+
+# Example 2: Retrieve multiple colors
+get_ecampus_colors("eMajor_Navy", "eCore_Teal", "eCore_Purple")
+
 }
