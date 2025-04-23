@@ -33,7 +33,7 @@ The eCampus package contains color palettes for R inspired by the
 
 ## Installation
 
-You can install the development version of ecampus from
+You can install the development version of eCampus palette from
 [GitHub](https://github.com/) with:
 
 ``` r
