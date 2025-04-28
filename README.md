@@ -219,7 +219,7 @@ mtcars$cyl <- as.factor(mtcars$cyl)
 # Bar chart using scale_fill_usg with discrete values
 ggplot(mtcars, aes(x = cyl, fill = cyl)) +
   geom_bar() +
-  scale_fill_usg(branch = "USG-eCore", type = "Official Colors")() +  # Add parentheses here
+  scale_fill_usg(branch = "USG-eCore", type = "Official Colors") +
   eCampus_theme()
 ```
 
