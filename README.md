@@ -171,7 +171,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
 ggplot(mtcars, aes(x = factor(cyl))) +
   geom_bar(fill = get_ecampus_colors("eMajor_Navy")) +
   theme_minimal() +
-  labs(title = "Bar Plot with eCore_Green", x = "Cylinders", y = "Count")
+  labs(title = "Bar Plot with eMajor_Navy", x = "Cylinders", y = "Count")
 ```
 
 2.  **eCampus_theme()**: Applies a custom theme to ggplot2 plots.
