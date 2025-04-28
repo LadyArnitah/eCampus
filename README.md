@@ -24,8 +24,8 @@ The eCampus package contains color palettes for R inspired by the
 
 - [Installation](#installation)
 - [Palette Table](#palette-table)
-- [Palettes](#palettes)
 - [Package Functions](#package-functions)
+- [Palettes](#palettes)
 - [USG Institutions](#usg-institutions)
 - [eCampus Hues](#ecampus-hues)
 - [eCampus Enhanced Gradient Generator](#ecampus-enhanced-gradient-generator)
@@ -137,41 +137,6 @@ datatable(
 # save as html
 #htmlwidgets::saveWidget(color_table, file="color_table.html", selfcontained = TRUE)
 ```
-
-## Palettes
-
-To further interact with the color palettes, we can visualize them in a
-stacked bar plot with hover text showing the color name and hex code.You
-can view the interactive eCampus Colors **[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
-
-<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>
-
-The code to reproduce the palette is below:
-
-``` r
-# Create a stacked bar plot with custom hover text
-stacked_plot <- ggplot(palette_data, aes(x = Branch, fill = Color)) +
-  geom_bar(position = "stack", aes(text = paste("Branch: ", Branch, "<br>Color: ", Color, "<br>Hex: ", Hex))) +
-  scale_fill_manual(values = setNames(palette_data$Hex, palette_data$Color)) +
-  theme_minimal() +
-  theme(panel.grid = element_blank(),
-        axis.text.x = element_text(angle = 0, hjust = 0, vjust=0),
-        legend.position = "none") +
-  labs(title = "Color Palette for eCampus")
-
-# Convert to an interactive plot with plotly, specifying the hover text
-interactive_plot <- ggplotly(stacked_plot, tooltip = "text")%>%
-  layout(
-    xaxis = list(title = ""),
-    yaxis= list(showticklabels = FALSE,title=""))
-
-# Print the interactive plot
-interactive_plot
-
-# Save as html
-#htmlwidgets::saveWidget(interactive_plot, "ref_plt.html", selfcontained = TRUE)
-```
-
 ## Package Functions
 
 The eCampus package includes several functions to work with color
@@ -256,6 +221,40 @@ ggplot(mtcars, aes(x = cyl, fill = cyl)) +
   geom_bar() +
   scale_fill_usg(branch = "USG-eCore", type = "Official Colors")() +  # Add parentheses here
   eCampus_theme()
+```
+
+## Palettes
+
+To further interact with the color palettes, we can visualize them in a
+stacked bar plot with hover text showing the color name and hex code.You
+can view the interactive eCampus Colors **[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
+
+<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>
+
+The code to reproduce the palette is below:
+
+``` r
+# Create a stacked bar plot with custom hover text
+stacked_plot <- ggplot(palette_data, aes(x = Branch, fill = Color)) +
+  geom_bar(position = "stack", aes(text = paste("Branch: ", Branch, "<br>Color: ", Color, "<br>Hex: ", Hex))) +
+  scale_fill_manual(values = setNames(palette_data$Hex, palette_data$Color)) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 0, hjust = 0, vjust=0),
+        legend.position = "none") +
+  labs(title = "Color Palette for eCampus")
+
+# Convert to an interactive plot with plotly, specifying the hover text
+interactive_plot <- ggplotly(stacked_plot, tooltip = "text")%>%
+  layout(
+    xaxis = list(title = ""),
+    yaxis= list(showticklabels = FALSE,title=""))
+
+# Print the interactive plot
+interactive_plot
+
+# Save as html
+#htmlwidgets::saveWidget(interactive_plot, "ref_plt.html", selfcontained = TRUE)
 ```
 
 ## USG Institutions
