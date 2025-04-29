@@ -429,14 +429,15 @@ App](https://img.shields.io/badge/Shiny%20App-Launch-blue?logo=rstudio)](https:/
 
 To run this app locally, use the following command:
 
-``` r
-# install shiny and shinyjs if not already installed
-# install.packages("shiny")
-# install.packages("shinyjs")
-# Run the app
-shiny::runGitHub("eCampusGradient", "LadyArnitah")
-```
-
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/LadyArnitah/eCampusGradient.git
+   ```
+2. Open the `app.R` file in RStudio or another R environment.
+3. Run the app:
+   ```R
+   shiny::runApp("path/to/local/eCampusGradient")
+   ```
 Here is the code to reproduce the eCampus Enhanced Gradient Generator:
 
 ``` r
