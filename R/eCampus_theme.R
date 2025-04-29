@@ -45,14 +45,14 @@ eCampus_theme <- function(base_size = 14, base_family = "Arial") {
       panel.grid.minor = ggplot2::element_blank(),
 
       # Legend
-      legend.title = ggplot2::element_text(size = 12, face = "bold", color = "#003366"),
+      legend.title = ggplot2::element_text(size = 12, face = "bold", color = "#000000"),
       legend.text = ggplot2::element_text(size = 10, color = "#000000"),
       legend.background = ggplot2::element_blank(),
       legend.key = ggplot2::element_blank(),
       legend.position = "bottom",
 
       # Strip text (facet labels)
-      strip.text = ggplot2::element_text(size = 12, face = "bold", color = "#003366"),
+      strip.text = ggplot2::element_text(size = 12, face = "bold", color = "#000000"),
 
       # Axis lines
       axis.line = ggplot2::element_line(color = "#000000", size = 0.5),

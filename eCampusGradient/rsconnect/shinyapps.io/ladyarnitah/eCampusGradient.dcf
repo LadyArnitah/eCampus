@@ -5,7 +5,7 @@ account: ladyarnitah
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 14451404
-bundleId: 10119250
+bundleId: 10195113
 url: https://ladyarnitah.shinyapps.io/eCampusGradient/
 version: 1
 asMultiple: FALSE

@@ -56,7 +56,7 @@ ui <- fluidPage(
       selectInput("gradient_type", "Gradient Type:", choices = c("Linear", "Radial", "Conic", "Linear-Repeating", "Radial-Repeating", "Conic-Repeating")),
       sliderInput("angle", "Gradient Angle:", min = 0, max = 360, value = 0, step = 5),
       selectInput("direction", "Interpolation Direction:", choices = c("To Right", "To Left", "To Top", "To Bottom")),
-      sliderInput("precision", "Gradient Precision:", min = 10, max = 100, value = 50),
+      sliderInput("precision", "Gradient Precision:", min = 2, max = 50, value = 10),
 
       selectInput("interpolation_type", "Interpolation Type:", choices = c("RGB Blend", "Perceptual HCL", "Smooth Interpolation")),
       selectInput("ease_function", "Ease Function:", choices = c("Linear", "Ease-In", "Ease-Out")),
@@ -109,12 +109,16 @@ server <- function(input, output, session) {
 
   output$gradient_colors_list <- renderText({
     req(gradient_colors())
-    paste(gradient_colors(), collapse = ",")
+
+    # Wrap each color in single quotes and collapse them with commas
+    paste(sprintf("'%s'", gradient_colors()), collapse = ", ")
   })
 
   observeEvent(input$copy_gradient_colors, {
     req(gradient_colors())
-    gradient_text <- paste(gradient_colors(), collapse = ", ")
+
+    # Wrap each color in single quotes and collapse them with commas
+    gradient_text <- paste(sprintf("'%s'", gradient_colors()), collapse = ", ")
 
     # Use JavaScript to copy the gradient colors to the clipboard
     shinyjs::runjs(sprintf("
@@ -137,7 +141,12 @@ server <- function(input, output, session) {
     },
     content = function(file) {
       req(gradient_colors())
-      writeLines(gradient_colors(), file)
+
+      # Wrap each color in single quotes
+      formatted_colors <- sprintf("'%s'", gradient_colors())
+
+      # Write the formatted colors to the file
+      writeLines(formatted_colors, file)
     }
   )
 

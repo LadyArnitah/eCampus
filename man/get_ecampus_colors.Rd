@@ -22,6 +22,6 @@ the corresponding color values from the \code{ecampus_palette}.
 get_ecampus_colors("eCore_Teal")
 
 # Example 2: Retrieve multiple colors
-get_ecampus_colors("eMajor_Navy", "eCore_Teal", "eCore_Purple")
+get_ecampus_colors("eMajor_Navy", "eCore_Teal", "eMajor_Pedagogy_Purple")
 
 }
