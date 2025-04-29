@@ -229,7 +229,7 @@ To further interact with the color palettes, we can visualize them in a
 stacked bar plot with hover text showing the color name and hex code.You
 can view the interactive eCampus Colors **[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
 
-[<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>]
+<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>
 
 The code to reproduce the palette is below:
 
