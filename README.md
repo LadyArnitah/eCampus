@@ -75,7 +75,7 @@ library(shinyjs)
 ecampus_palette <- list(
   "USG-eCore" = list(
     "Official Colors" = c("eCore_Green" = "#7BA640", "eCore_Teal" = "#00A9A6", "eCore_Callout_Green" = "#C9D57F", "eCore_Callout_Teal" = "#B4E8E5"),
-    "Secondary Colors" = c("eCore_Class_is_Greener" = "#7DAA45", "eCore_OER_Orange" = "#F6931E", "eCore_Professor_Plum" = "#8F3776", "eCore_Transferable_Teal" = "#03A59D", "eCore_Accredited_Gray" = "#555755", "eCore_Profread_Red" = "#CA2027", "eCore_Success_Team_Turquoise" = "#4CC2C5","eCore_Banner_Blue" = "#21387D","eCore_Deep_Thinking_Teal" = "#0F7F86"),
+    "Secondary Colors" = c("eCore_Class_is_Greener" = "#7DAA45", "eCore_OER_Orange" = "#F6931E", "eCore_Professor_Plum" = "#8F3776", "eCore_Transferable_Teal" = "#03A59D", "eCore_Accredited_Gray" = "#555755", "eCore_Proofread_Red" = "#CA2027", "eCore_Success_Team_Turquoise" = "#4CC2C5","eCore_Banner_Blue" = "#21387D","eCore_Deep_Thinking_Teal" = "#0F7F86"),
     "Neutrals" = c("eCore_Grateful_Gray" = "#848484", "eCore_Balanced_Blue" = "#DDF1EB", "eCore_Confident_Gray" = "#CFCFCF", "eCore_Growth_Green" = "#E7F1BD")
   ),
   "USG-eMajor" = list(
