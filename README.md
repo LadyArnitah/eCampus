@@ -24,8 +24,8 @@ The eCampus package contains color palettes for R inspired by the
 
 - [Installation](#installation)
 - [Palette Table](#palette-table)
-- [Palettes](#palettes)
 - [Package Functions](#package-functions)
+- [Palettes](#palettes)
 - [USG Institutions](#usg-institutions)
 - [eCampus Hues](#ecampus-hues)
 - [eCampus Enhanced Gradient Generator](#ecampus-enhanced-gradient-generator)
@@ -33,7 +33,7 @@ The eCampus package contains color palettes for R inspired by the
 
 ## Installation
 
-You can install the development version of ecampus from
+You can install the development version of eCampus palette from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -49,7 +49,7 @@ devtools::install_github("LadyArnitah/eCampus")
 The ecampus package includes color palettes for different branches of
 the eCampus brand. The palettes are organized into four main categories.
 Each category contains a list of colors with their corresponding hex
-codes. You can view the interactive eCampus Color Guide  **[View Interactive Plot](https://LadyArnitah.github.io/eCampus/color_table.html)**
+codes. You can view the interactive eCampus Color Guide  **[View Palette Table](https://LadyArnitah.github.io/eCampus/color_table.html)**
 
 
 <img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/final_USG-merged.png"/>
@@ -137,41 +137,6 @@ datatable(
 # save as html
 #htmlwidgets::saveWidget(color_table, file="color_table.html", selfcontained = TRUE)
 ```
-
-## Palettes
-
-To further interact with the color palettes, we can visualize them in a
-stacked bar plot with hover text showing the color name and hex code.You
-can view the interactive eCampus Colors **[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
-
-<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>
-
-The code to reproduce the palette is below:
-
-``` r
-# Create a stacked bar plot with custom hover text
-stacked_plot <- ggplot(palette_data, aes(x = Branch, fill = Color)) +
-  geom_bar(position = "stack", aes(text = paste("Branch: ", Branch, "<br>Color: ", Color, "<br>Hex: ", Hex))) +
-  scale_fill_manual(values = setNames(palette_data$Hex, palette_data$Color)) +
-  theme_minimal() +
-  theme(panel.grid = element_blank(),
-        axis.text.x = element_text(angle = 0, hjust = 0, vjust=0),
-        legend.position = "none") +
-  labs(title = "Color Palette for eCampus")
-
-# Convert to an interactive plot with plotly, specifying the hover text
-interactive_plot <- ggplotly(stacked_plot, tooltip = "text")%>%
-  layout(
-    xaxis = list(title = ""),
-    yaxis= list(showticklabels = FALSE,title=""))
-
-# Print the interactive plot
-interactive_plot
-
-# Save as html
-#htmlwidgets::saveWidget(interactive_plot, "ref_plt.html", selfcontained = TRUE)
-```
-
 ## Package Functions
 
 The eCampus package includes several functions to work with color
@@ -182,8 +147,9 @@ the package. Below are examples of how to use these functions:
     names.
 
 ``` r
-# Example usage
+# Example usage for multiple colors
 library(eCampus)
+library(ggplot2)
 ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
   geom_bar() +
   scale_fill_manual(values = setNames(
@@ -192,11 +158,20 @@ ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
   )) +
   theme_minimal()
 
+# Another Example usage
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 4) +
+  scale_color_manual(
+    values = setNames(get_ecampus_colors("eMajor_Navy", "eCore_Teal", "eCampus_Red"), levels(iris$Species))
+  ) +  # Map each color to a species level
+  theme_minimal() +
+  ggtitle("Sepal Dimensions by Species (Multiple Colors)")
+
 # Plot using a single color
 ggplot(mtcars, aes(x = factor(cyl))) +
   geom_bar(fill = get_ecampus_colors("eMajor_Navy")) +
   theme_minimal() +
-  labs(title = "Bar Plot with eCore_Green", x = "Cylinders", y = "Count")
+  labs(title = "Bar Plot with eMajor_Navy", x = "Cylinders", y = "Count")
 ```
 
 2.  **eCampus_theme()**: Applies a custom theme to ggplot2 plots.
@@ -244,8 +219,42 @@ mtcars$cyl <- as.factor(mtcars$cyl)
 # Bar chart using scale_fill_usg with discrete values
 ggplot(mtcars, aes(x = cyl, fill = cyl)) +
   geom_bar() +
-  scale_fill_usg(branch = "USG-eCore", type = "Official Colors")() +  # Add parentheses here
+  scale_fill_usg(branch = "USG-eCore", type = "Official Colors") +
   eCampus_theme()
+```
+
+## Palettes
+
+To further interact with the color palettes, we can visualize them in a
+stacked bar plot with hover text showing the color name and hex code.You
+can view the interactive eCampus Colors **[View Interactive Palette Plot](https://ladyarnitah.github.io/eCampus/ref_plt.html)**
+
+<img src="https://raw.githubusercontent.com/LadyArnitah/eCampus/master/man/figures/ref_plt.png"/>
+
+The code to reproduce the palette is below:
+
+``` r
+# Create a stacked bar plot with custom hover text
+stacked_plot <- ggplot(palette_data, aes(x = Branch, fill = Color)) +
+  geom_bar(position = "stack", aes(text = paste("Branch: ", Branch, "<br>Color: ", Color, "<br>Hex: ", Hex))) +
+  scale_fill_manual(values = setNames(palette_data$Hex, palette_data$Color)) +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 0, hjust = 0, vjust=0),
+        legend.position = "none") +
+  labs(title = "Color Palette for eCampus")
+
+# Convert to an interactive plot with plotly, specifying the hover text
+interactive_plot <- ggplotly(stacked_plot, tooltip = "text")%>%
+  layout(
+    xaxis = list(title = ""),
+    yaxis= list(showticklabels = FALSE,title=""))
+
+# Print the interactive plot
+interactive_plot
+
+# Save as html
+#htmlwidgets::saveWidget(interactive_plot, "ref_plt.html", selfcontained = TRUE)
 ```
 
 ## USG Institutions
