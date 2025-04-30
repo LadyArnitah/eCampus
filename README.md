@@ -648,5 +648,5 @@ shinyApp(ui, server)
 Design\] (<https://www.learnui.design/tools/data-color-picker.html>).
 - To download the `tar.gz`file from the **Assets** section below:
 ```R
-install.packages("artifacts/eCampus_0.0.0.9000.tar.gz", repos = NULL, type="source")
+install.packages("artifacts/eCampus_0.1.0.tar.gz", repos = NULL, type="source")
 ```
