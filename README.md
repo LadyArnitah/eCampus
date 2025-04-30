@@ -418,9 +418,7 @@ pp <- plotly::ggplotly(p, tooltip = "text")
 
 The eCampus Enhanced Gradient Generator is a Shiny application that
 allows users to create and visualize gradients from the eCampus color
-palette.
-
-The app allows you to: 
+palette. The app allows you to: 
 - Generate gradients using eCampus color
 palettes.
 - Export gradients as CSS, URL, or SVG.
