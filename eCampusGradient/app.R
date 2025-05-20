@@ -48,47 +48,64 @@ ui <- fluidPage(
   titlePanel("eCampus Enhanced Gradient Generator"),
   useShinyjs(),
 
-  sidebarLayout(
-    sidebarPanel(
-      selectInput("palette", "Choose a Palette:", choices = names(ecampus_palette)),
-      uiOutput("colors_ui"),
-
-      selectInput("gradient_type", "Gradient Type:", choices = c("Linear", "Radial", "Conic", "Linear-Repeating", "Radial-Repeating", "Conic-Repeating")),
-      sliderInput("angle", "Gradient Angle:", min = 0, max = 360, value = 0, step = 5),
-      selectInput("direction", "Interpolation Direction:", choices = c("To Right", "To Left", "To Top", "To Bottom")),
-      sliderInput("precision", "Gradient Precision:", min = 2, max = 50, value = 10),
-
-      selectInput("interpolation_type", "Interpolation Type:", choices = c("RGB Blend", "Perceptual HCL", "Smooth Interpolation")),
-      selectInput("ease_function", "Ease Function:", choices = c("Linear", "Ease-In", "Ease-Out")),
-
-      actionButton("copy_css", "Copy CSS"),
-      downloadButton("download_gradient", "Export as CSS"),
-      downloadButton("download_svg", "Export as SVG"),
-      actionButton("copy_gradient_colors", "Copy Gradient Colors"),
-      downloadButton("download_gradient_colors", "Export Gradient Colors as .txt")
+  tabsetPanel(
+    tabPanel(
+      "Gradient Generator",
+      sidebarLayout(
+        sidebarPanel(
+          selectInput("palette", "Choose a Palette:", choices = names(ecampus_palette)),
+          uiOutput("colors_ui"),
+          selectInput("gradient_type", "Gradient Type:", choices = c("Linear", "Radial", "Conic", "Linear-Repeating", "Radial-Repeating", "Conic-Repeating")),
+          sliderInput("angle", "Gradient Angle:", min = 0, max = 360, value = 0, step = 5),
+          selectInput("direction", "Interpolation Direction:", choices = c("To Right", "To Left", "To Top", "To Bottom")),
+          sliderInput("precision", "Gradient Precision:", min = 2, max = 50, value = 10),
+          selectInput("interpolation_type", "Interpolation Type:", choices = c("RGB Blend", "Perceptual HCL", "Smooth Interpolation")),
+          selectInput("ease_function", "Ease Function:", choices = c("Linear", "Ease-In", "Ease-Out")),
+          actionButton("copy_css", "Copy CSS"),
+          downloadButton("download_gradient", "Export as CSS"),
+          downloadButton("download_svg", "Export as SVG"),
+          actionButton("copy_gradient_colors", "Copy Gradient Colors"),
+          downloadButton("download_gradient_colors", "Export Gradient Colors as .txt")
+        ),
+        mainPanel(
+          div(id = "preview_element", style = "width:100%;height:300px;"),
+          textOutput("gradient_css"),
+          plotlyOutput("gradient_plot"),
+          h4("Gradient Preview:"),
+          verbatimTextOutput("gradient_colors_list", placeholder = FALSE),
+          tags$style(HTML("
+            #gradient_colors_list {
+              max-height: none;
+              overflow: visible;
+              white-space: normal;
+            }
+          "))
+        )
+      )
     ),
-
-    mainPanel(
-      div(id = "preview_element", style = "width:100%;height:300px;"),
-      textOutput("gradient_css"),
-      plotlyOutput("gradient_plot"),
-      h4("Gradient Preview:"),
-      verbatimTextOutput("gradient_colors_list", placeholder = FALSE),
-      tags$style(HTML("
-    #gradient_colors_list {
-      max-height: none; /* Ensures the container grows dynamically */
-      overflow: visible; /* Prevents scrolling */
-      white-space: normal; /* Wraps long lines instead of scrolling horizontally */
-    }
-  "))
-
+    tabPanel(
+      "Color Selector",
+      sidebarLayout(
+        sidebarPanel(
+          selectInput("color_picker", "Pick Colors:", choices = colors(), multiple = TRUE),
+          actionButton("copy_colors", "Copy Colors")
+        ),
+        mainPanel(
+          h4("Selected Colors"),
+          verbatimTextOutput("color_list"),
+          h4("Color Preview"),
+          uiOutput("color_preview")
+        )
+      )
     )
   )
 )
 
+
 # Server logic
 server <- function(input, output, session) {
 
+  # Gradient Generator Logic
   output$colors_ui <- renderUI({
     req(input$palette)
     selectizeInput("selected_colors", "Select Colors:",
@@ -118,7 +135,7 @@ server <- function(input, output, session) {
     req(gradient_colors())
 
     # Wrap each color in single quotes and collapse them with commas
-    gradient_text <- paste(sprintf("'%s'", gradient_colors()), collapse = ", ")
+    gradient_text <- paste0("c(", paste(sprintf('"%s"', gradient_colors()), collapse = ", "), ")")
 
     # Use JavaScript to copy the gradient colors to the clipboard
     shinyjs::runjs(sprintf("
@@ -280,6 +297,55 @@ server <- function(input, output, session) {
     ggplotly(p, tooltip = "text") %>%
       layout(showlegend = FALSE) %>%
       config(displayModeBar = FALSE)
+  })
+
+
+  # Color Selector Logic
+  observe({
+    req(input$palette)
+    palette_colors <- unlist(ecampus_palette[[input$palette]])
+    updateSelectInput(session, "color_picker", choices = palette_colors)
+  })
+
+  # Reactive to store selected colors from the color_picker input
+  selected_colors <- reactive({
+    req(input$color_picker)
+    input$color_picker
+  })
+
+  # Render the list of selected colors as text
+  output$color_list <- renderText({
+    req(selected_colors())
+    paste(selected_colors(), collapse = ", ")
+  })
+
+
+  # Copy selected colors to clipboard
+  observeEvent(input$copy_colors, {
+    req(selected_colors())
+  # Format the selected colors as an R vector
+  color_text <- paste0("c(", paste(sprintf('"%s"', selected_colors()), collapse = ", "), ")")
+    shinyjs::runjs(sprintf("
+      var clipboard = document.createElement('textarea');
+      clipboard.style.position = 'absolute';
+      clipboard.style.left = '-9999px';
+      document.body.appendChild(clipboard);
+      clipboard.value = `%s`;
+      clipboard.select();
+      document.execCommand('copy');
+      document.body.removeChild(clipboard);
+    ", color_text))
+    showNotification("Colors copied to clipboard!", type = "message")
+  })
+
+  # Render a preview of the selected colors as colored boxes
+  output$color_preview <- renderUI({
+    req(selected_colors())
+    div(style = "display: flex; flex-wrap: wrap;",
+        lapply(selected_colors(), function(color) {
+          div(style = paste("width: 50px; height: 50px; margin: 5px; background-color:", color, ";"), "")
+        })
+    )
   })
 }
 
